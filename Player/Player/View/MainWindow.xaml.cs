@@ -16,9 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Player.Domain;
-using Player.PlayerApplication;
 
-namespace Player
+namespace Player.View
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -32,57 +31,57 @@ namespace Player
 
         private void Play_music_Click(object sender, RoutedEventArgs e)
         {
-            int currentSongIndex = playlist.SelectedIndex;
-            PlayMedia(currentSongIndex);
-            currentSongIndex++;
+            //int currentSongIndex = playlist.SelectedIndex;
+            //PlayMedia(currentSongIndex);
+            //currentSongIndex++;
         }
 
         private void Previos_song_Click(object sender, RoutedEventArgs e)
         {
-            if (playlist.SelectedIndex - 1 < 0) return;
-            playlist.SelectedIndex = playlist.SelectedIndex - 1;
-            PlayMedia(playlist.SelectedIndex);
+            //if (playlist.SelectedIndex - 1 < 0) return;
+            //playlist.SelectedIndex = playlist.SelectedIndex - 1;
+            //PlayMedia(playlist.SelectedIndex);
         }
 
         private void Next_song_Click(object sender, RoutedEventArgs e)
         {
-            playlist.SelectedIndex = playlist.SelectedIndex + 1;
-            PlayMedia(playlist.SelectedIndex);
+            //playlist.SelectedIndex = playlist.SelectedIndex + 1;
+            //PlayMedia(playlist.SelectedIndex);
 
         }
 
         private void Playlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int currentSongIndex = playlist.SelectedIndex;
-            Song song = new Song(MainWindowController.Paths[currentSongIndex], playlist.SelectedItem.ToString());
-            artist_name.Content = song.Singer;
-            song_title.Content = song.Title;
-            song_lyrics.Text = (song.Lyrics != "") ? song.Lyrics : "К сожалению, текста не найдено, но мы работаем над этим. Или вы просто слушаете русскую музыку)";
-            PlayMedia(currentSongIndex);
+            //int currentSongIndex = playlist.SelectedIndex;
+            //Song song = new Song(MainWindowController.Paths[currentSongIndex], playlist.SelectedItem.ToString());
+            //artist_name.Content = song.Singer;
+            //song_title.Content = song.Title;
+            //song_lyrics.Text = (song.Lyrics != "") ? song.Lyrics : "К сожалению, текста не найдено, но мы работаем над этим. Или вы просто слушаете русскую музыку)";
+            //PlayMedia(currentSongIndex);
         }
 
         private void Pause_button_Click(object sender, RoutedEventArgs e)
         {
-            media.Pause();
+            //media.Pause();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            List<string> files = MainWindowController.SelectFiles();
-            foreach (var songname in files)
-            {
-                playlist.Items.Add(songname);
-            }
+            //List<string> files = MainWindowController.SelectFiles();
+            //foreach (var songname in files)
+            //{
+            //    playlist.Items.Add(songname);
+            //}
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            media.Stop();
+            //media.Stop();
         }
         private void PlayMedia(int index)
         {
-            media.Source = new Uri(MainWindowController.Paths[index]);
-            media.Play();
+            //media.Source = new Uri(MainWindowController.Paths[index]);
+            //media.Play();
         }
     }
 }
