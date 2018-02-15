@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -14,7 +15,7 @@
         AllowsTransparency="True">
 
     <Grid>
-        <TextBox Name="song_lyrics" HorizontalAlignment="Left" Height="319" Margin="298,0,-6,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="227" BorderThickness="0" IsReadOnly="True"  Focusable="False" Background ="#E91E63"/>
+        <TextBox Name="song_lyrics" HorizontalAlignment="Left" Height="319" Margin="298,0,-6,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="227" BorderThickness="0" IsReadOnly="True"  Focusable="False" Background ="#E91E63" Text="{Binding Song.Lyrics}"/>
         <Button Name="play_music" HorizontalAlignment="Left" Margin="78,234,0,0" VerticalAlignment="Top"  Style="{DynamicResource MaterialDesignToolButton}" Height="50" Width="50" Click="Play_music_Click" >
             <Viewbox Width="30" Height="30">
                 <Canvas Width="20" Height="20">
@@ -37,8 +38,8 @@
                 </Canvas>
             </Viewbox>
         </Button>
-        <Label Name="artist_name" HorizontalAlignment="Left" Margin="39,21,0,0" VerticalAlignment="Top" Height="30" Width="180" />
-        <Label Name="song_title" HorizontalAlignment="Left" Margin="38,65,0,0" VerticalAlignment="Top" Height="28" Width="180" />
+        <Label Name="artist_name" HorizontalAlignment="Left" Margin="39,21,0,0" VerticalAlignment="Top" Height="30" Width="180" Content="{Binding Song.Singer}"/>
+        <Label Name="song_title" HorizontalAlignment="Left" Margin="38,65,0,0" VerticalAlignment="Top" Height="28" Width="180" Content="{Binding Song.Title}" />
         <MediaElement Name="media" HorizontalAlignment="Left" Height="100" Margin="115,98,0,0" VerticalAlignment="Top" Width="100"  LoadedBehavior="Manual"/>
         <Button Name="pause_button" HorizontalAlignment="Left" Margin="130,234,0,0" VerticalAlignment="Top" Width="50" Height="50" Style="{DynamicResource MaterialDesignToolButton}" Click="Pause_button_Click">
             <Viewbox Width="30" Height="30">
@@ -56,7 +57,8 @@
         </Button>
         <Expander ExpandDirection ="Right" Margin="0,0,226,0" IsExpanded="True" Focusable="False" BorderThickness="0">
             <Grid>
-                <ListBox Name="playlist" ItemsSource="{Binding Files}"  Height="311" VerticalAlignment="Top" Width="264" ScrollViewer.HorizontalScrollBarVisibility="Disabled" RenderTransformOrigin="0.358,0.489" SelectionChanged="Playlist_SelectionChanged"/>
+                <ListBox Name="playlist" ItemsSource="{Binding Files}" SelectedIndex="{Binding CurrentlySelectedSongIndex, Mode=TwoWay}" Height="311" VerticalAlignment="Top" Width="264" ScrollViewer.HorizontalScrollBarVisibility="Disabled" RenderTransformOrigin="0.358,0.489" SelectionChanged="Playlist_SelectionChanged">
+                </ListBox>
                 <Button Name="add" Style="{DynamicResource MaterialDesignFloatingActionButton}" Margin="190,232,10,23" Command="{Binding AddFilesCommand}">
                     <Viewbox Width="40" Height="40">
                         <Canvas Width="24" Height="24">

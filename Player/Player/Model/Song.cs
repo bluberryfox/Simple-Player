@@ -72,12 +72,14 @@ namespace Player.Domain
             var audioFile = TagLib.File.Create(path);
             singer = String.Join(", ", audioFile.Tag.Performers);
             title = audioFile.Tag.Title;
+
             if (singer == "" || singer == null || title == "" || title == null)
             {
                 generateData(filename);
                 audioFile.Tag.Performers = new string[] { singer };
                 audioFile.Tag.Title = title;
             }
+
             if (audioFile.Tag.Lyrics == null || audioFile.Tag.Lyrics == "")
             {
                 lyrics = Deserialization.DeserializeLyrics(SearchLyrics.FindLyrics(singer, title));

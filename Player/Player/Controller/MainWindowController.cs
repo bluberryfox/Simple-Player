@@ -9,23 +9,31 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Player.VM
 {
     class MainWindowViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Song> _playlist;
-        public List<string> Paths;
-        public ObservableCollection<string> files;
-        public ObservableCollection<Song> Playlist
+       
+        public static List<string> Paths;
+        private ObservableCollection<string> files;
+        private int selectedSongIndex;
+        public MediaElement Player { get; set; }
+        public Song song { get; set; }
+
+        public int SelectedSongIndex
         {
-            get { return _playlist; }
+            get
+            {
+                return selectedSongIndex;
+            }
             set
             {
-                if (Equals(value, _playlist)) return;
-                _playlist = value;
-                OnPropertyChanged(nameof(Playlist));
+                if (Equals(value, selectedSongIndex)) return;
+                selectedSongIndex = value;
+                OnPropertyChanged(nameof(SelectedSongIndex));
             }
         }
         public ObservableCollection<string> Files
@@ -45,14 +53,24 @@ namespace Player.VM
         public MainWindowViewModel()
         {
             AddFilesCommand = new Command(arg => SelectFiles());
+            PlayMusicCommand = new Command(arg => PlayMusic(selectedSongIndex));
             Files = new ObservableCollection<string>();
-            //song = new Song("music.mp3", "music");
+            song = new Song(Paths[selectedSongIndex], files[selectedSongIndex]);
+           
         }
+
+        private string PlayMusic(int selectedSongIndex)
+        {
+            return Paths[selectedSongIndex];
+        }
+
         public ICommand AddFilesCommand { get; set; }
+        public ICommand PlayMusicCommand { get; set; }
+       
+
 
         public void SelectFiles()
         {
-
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Multiselect = true,
@@ -64,8 +82,6 @@ namespace Player.VM
                 foreach (string filename in openFileDialog.SafeFileNames)
                     Files.Add(System.IO.Path.GetFileNameWithoutExtension(filename));
             }
-
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
