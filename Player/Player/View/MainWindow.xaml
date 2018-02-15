@@ -14,8 +14,8 @@
         AllowsTransparency="True">
 
     <Grid>
-        <TextBox Name="song_lyrics" HorizontalAlignment="Left" Height="319" Margin="298,0,-6,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="227" BorderThickness="0" IsReadOnly="True"  Focusable="False" Background ="#E91E63" />
-        <Button Name="play_music" HorizontalAlignment="Left" Margin="78,234,0,0" VerticalAlignment="Top"  Style="{DynamicResource MaterialDesignToolButton}" Height="50" Width="50" Click="Play_Click" >
+        <TextBox Name="songLyrics" HorizontalAlignment="Left" Height="319" Margin="298,0,-6,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="227" BorderThickness="0" IsReadOnly="True"  Focusable="False" Background ="#E91E63" />
+        <Button Name="playMusic" HorizontalAlignment="Left" Margin="80,234,0,0" VerticalAlignment="Top"  Style="{DynamicResource MaterialDesignToolButton}" Height="50" Width="50" Click="PlayClick" >
             <Viewbox Width="30" Height="30">
                 <Canvas Width="20" Height="20">
                     <Path Data="M8,5.14V19.14L19,12.14L8,5.14Z" Fill="White" />
@@ -23,43 +23,43 @@
             </Viewbox>
         </Button>
 
-        <Button Name ="previos_song" Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Left" Margin="26,235,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="PreviosSong_Click">
+        <Button Name ="previosSong" Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Left" Margin="28,235,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="PreviosSongClick">
             <Viewbox Width="30" Height="30">
                 <Canvas Width="20" Height="20">
                     <Path Data="M19,5V19H16V5M14,5V19L3,12" Fill="White" />
                 </Canvas>
             </Viewbox>
         </Button>
-        <Button Name="next_song" Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Left" Margin="234,235,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="NextSong_Click">
+        <Button Name="nextSong" Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Left" Margin="236,235,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="NextSongClick">
             <Viewbox Width="30" Height="30">
                 <Canvas Width="20" Height="20">
                     <Path Data="M5,5V19H8V5M10,5V19L21,12" Fill="White" />
                 </Canvas>
             </Viewbox>
         </Button>
-        <Label Name="artist_name" HorizontalAlignment="Left" Margin="39,21,0,0" VerticalAlignment="Top" Height="30" Width="180" />
-        <Label Name="song_title" HorizontalAlignment="Left" Margin="38,65,0,0" VerticalAlignment="Top" Height="28" Width="180" />
-        <MediaElement Name="media" HorizontalAlignment="Left" Height="0" Margin="293,0,0,0" VerticalAlignment="Top" Width="5"  LoadedBehavior="Manual" MediaEnded="Media_MediaEnded">
+        <Label Name="artistName" HorizontalAlignment="Left" Margin="39,21,0,0" VerticalAlignment="Top" Height="30" Width="180" />
+        <Label Name="songTitle" HorizontalAlignment="Left" Margin="38,65,0,0" VerticalAlignment="Top" Height="28" Width="180" />
+        <MediaElement Name="media" HorizontalAlignment="Left" Height="0" Margin="293,0,0,0" VerticalAlignment="Top" Width="5"  LoadedBehavior="Manual" MediaEnded="MediaMediaEnded">
         </MediaElement>
-        <Button Name="pause_button" HorizontalAlignment="Left" Margin="130,234,0,0" VerticalAlignment="Top" Width="50" Height="50" Style="{DynamicResource MaterialDesignToolButton}" Click="Pause_Click">
+        <Button Name="pauseButton" HorizontalAlignment="Left" Margin="132,234,0,0" VerticalAlignment="Top" Width="50" Height="50" Style="{DynamicResource MaterialDesignToolButton}" Click="PauseClick">
             <Viewbox Width="30" Height="30">
                 <Canvas Width="20" Height="20">
                     <Path Data="M14,19H18V5H14M6,19H10V5H6V19Z" Fill="White" />
                 </Canvas>
             </Viewbox>
         </Button>
-        <Button Name="stop" HorizontalAlignment="Left" Margin="182,235,0,0" VerticalAlignment="Top" Width="50" Height="50" Style="{DynamicResource MaterialDesignToolButton}" Click="Stop_Click">
+        <Button Name="stop" HorizontalAlignment="Left" Margin="184,235,0,0" VerticalAlignment="Top" Width="50" Height="50" Style="{DynamicResource MaterialDesignToolButton}" Click="StopClick">
             <Viewbox Width="30" Height="30">
                 <Canvas Width="20" Height="20">
                     <Path Data="M18,18H6V6H18V18Z" Fill="White" />
                 </Canvas>
             </Viewbox>
         </Button>
-        <Slider Name="progress" HorizontalAlignment="Left" Height="9" Margin="26,221,0,0" VerticalAlignment="Top" Width="272" Thumb.DragStarted="Progress_DragStarted"  Thumb.DragCompleted="Progress_DragCompleted"/>
+        <Slider Name="progress" HorizontalAlignment="Left" Height="9" Margin="28,221,0,0" VerticalAlignment="Top" Width="272" Thumb.DragStarted="ProgressDragStarted"  Thumb.DragCompleted="ProgressDragCompleted"/>
         <Expander ExpandDirection ="Right" Margin="0,0,226,0" IsExpanded="True" Focusable="False" BorderThickness="0">
             <Grid>
-                <ListBox Name="playlist" Width="271" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="Playlist_SelectionChanged" HorizontalAlignment="Left" Margin="-5,-5,-10,-5" Height="321" VerticalAlignment="Top"/>
-                <Button Name="add" Style="{DynamicResource MaterialDesignFloatingActionButton}" Margin="190,232,10,23" Click="Add_Click">
+                <ListBox Name="playlist" Width="271" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="PlaylistSelectionChanged" HorizontalAlignment="Left" Margin="-5,-5,-10,-5" Height="321" VerticalAlignment="Top"/>
+                <Button Name="add" Style="{DynamicResource MaterialDesignFloatingActionButton}" Margin="190,232,10,23" Click="AddClick">
                     <Viewbox Width="40" Height="40">
                         <Canvas Width="24" Height="24">
                             <Path Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" Fill="White" />
