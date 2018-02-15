@@ -16,9 +16,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Player.Domain;
-using Player.VM;
+using Player.Controller;
 
-namespace Player.View
+namespace Player
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -28,14 +28,12 @@ namespace Player.View
         public MainWindow()
         {
             InitializeComponent();
-            MainWindowViewModel vm = new MainWindowViewModel();
-            this.DataContext = vm;
         }
 
         private void Play_music_Click(object sender, RoutedEventArgs e)
         {
             int currentSongIndex = playlist.SelectedIndex;
-            media.Play();
+            PlayMedia(currentSongIndex);
             currentSongIndex++;
         }
 
@@ -43,21 +41,24 @@ namespace Player.View
         {
             if (playlist.SelectedIndex - 1 < 0) return;
             playlist.SelectedIndex = playlist.SelectedIndex - 1;
-            media.Play();
+            PlayMedia(playlist.SelectedIndex);
         }
 
         private void Next_song_Click(object sender, RoutedEventArgs e)
         {
             playlist.SelectedIndex = playlist.SelectedIndex + 1;
-            media.Play();
+            PlayMedia(playlist.SelectedIndex);
 
         }
 
         private void Playlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int currentSongIndex = playlist.SelectedIndex;
-            media.Source = new Uri(MainWindowViewModel.Paths[currentSongIndex]);
-            media.Play();
+            //вывести сюда через контроллер данные
+            artist_name.Content = song.Singer;
+            song_title.Content = song.Title;
+            song_lyrics.Text = (song.Lyrics != "") ? song.Lyrics : "К сожалению, текста не найдено, но мы работаем над этим. Или вы просто слушаете русскую музыку)";
+            PlayMedia(currentSongIndex);
         }
 
         private void Pause_button_Click(object sender, RoutedEventArgs e)
@@ -65,10 +66,25 @@ namespace Player.View
             media.Pause();
         }
 
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            //тут сделать через контроллер
+            List<string> files = MainWindowController.SelectFiles();
+            foreach (var songname in files)
+            {
+                playlist.Items.Add(songname);
+            }
+        }
+
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             media.Stop();
         }
-        
+        private void PlayMedia(int index)
+        {
+            //получать путь через контроллер
+            media.Source = new Uri(MainWindowController.Paths[index]);
+            media.Play();
+        }
     }
 }
