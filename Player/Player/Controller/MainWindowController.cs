@@ -38,9 +38,8 @@ namespace Player.Controller
         {
             return paths[index];
         }
-        public static Tuple<string, string, string> getSongInfo(string path)
+        public static Tuple<string, string, string> GetSongInfo(string path)
         {
-
             Song song = new Song(path);
             return Tuple.Create(song.Singer, song.Title, song.Lyrics);
         }

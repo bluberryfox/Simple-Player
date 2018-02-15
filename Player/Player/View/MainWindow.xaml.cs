@@ -66,10 +66,10 @@ namespace Player.View
 
         private void Previos_song_Click(object sender, RoutedEventArgs e)
         {
+            //TODO: Refactoring with delegates
             if (playlist.SelectedIndex - 1 < 0) return;
             playlist.SelectedIndex = playlist.SelectedIndex - 1;
-            string path = MainWindowController.GetPathToFile(playlist.SelectedIndex);
-            PlayMedia(path);
+            PlayMedia(MainWindowController.GetPathToFile(playlist.SelectedIndex));
         }
 
         private void Next_song_Click(object sender, RoutedEventArgs e)
@@ -83,10 +83,10 @@ namespace Player.View
         private void Playlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string path = MainWindowController.GetPathToFile(playlist.SelectedIndex);
-            var temp = MainWindowController.getSongInfo(path);
+            var temp = MainWindowController.GetSongInfo(path);
             artist_name.Content = temp.Item1;
             song_title.Content = temp.Item2;
-            song_lyrics.Text = (temp.Item3 != "") ? temp.Item3 : "К сожалению, текста не найдено, но мы работаем над этим. Или вы просто слушаете русскую музыку)";
+            song_lyrics.Text = (temp.Item3 != "") ? temp.Item3 : "=^.^=";
             PlayMedia(path);
         }
 
@@ -97,8 +97,8 @@ namespace Player.View
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
+            media.Stop();
             playlist.ItemsSource = MainWindowController.FindAllFiles();
-            
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)

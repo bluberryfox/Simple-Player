@@ -16,7 +16,7 @@ namespace Player.Services
             int separatorIndex = filename.LastIndexOf('-');
             if (separatorIndex == -1)
             {
-                audioFile.Tag.Performers= new string[] { "Unknown"};
+                audioFile.Tag.Performers = new string[] { "Unknown" };
                 audioFile.Tag.Title = "Unknown";
             }
             else
@@ -29,7 +29,15 @@ namespace Player.Services
 
         public static void WriteLyrics(string singer, string title, TagLib.File audioFile)
         {
-            audioFile.Tag.Lyrics = Deserialization.DeserializeLyrics(SearchLyrics.FindLyrics(singer, title));
+            string result = SearchLyrics.FindLyrics(singer, title);
+            if (result.Length <= 0)
+            {
+                return;
+            }
+            else
+            {
+                audioFile.Tag.Lyrics = Deserialization.DeserializeLyrics(result);
+            }
             audioFile.Save();
         }
     }

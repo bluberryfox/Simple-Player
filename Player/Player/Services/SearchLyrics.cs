@@ -12,15 +12,27 @@ namespace Player.Infrastructure
     {
         public static string FindLyrics(string singer, string song)
         {
-            //TODO:Add exeption
             string URL = $"http://lyric-api.herokuapp.com/api/find/{singer}/{song}";
-            WebRequest request = WebRequest.Create(URL);
-            WebResponse response = request.GetResponse();
-            Stream stream = response.GetResponseStream();
-            StreamReader streamReader = new StreamReader(stream);
-            string searchResult = streamReader.ReadToEnd();
-            streamReader.Close();
-            return searchResult;
+            string result;
+            try
+            {
+                WebRequest request = WebRequest.Create(URL);
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
+                            result = reader.ReadToEnd();
+                        }
+                    }
+                }
+            }
+            catch (WebException exeption)
+            {
+                result = "";
+            }
+            return result;
         }
     }
 }
