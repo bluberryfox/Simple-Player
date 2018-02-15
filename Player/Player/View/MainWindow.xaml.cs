@@ -86,7 +86,7 @@ namespace Player.View
             var temp = MainWindowController.GetSongInfo(path);
             artist_name.Content = temp.Item1;
             song_title.Content = temp.Item2;
-            song_lyrics.Text = (temp.Item3 != "") ? temp.Item3 : "=^.^=";
+            song_lyrics.Text = temp.Item3 ?? "=^.^= \n Интернета нет, но вы держитесь";
             PlayMedia(path);
         }
 

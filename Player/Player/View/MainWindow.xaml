@@ -14,7 +14,7 @@
         AllowsTransparency="True">
 
     <Grid>
-        <TextBox Name="song_lyrics" HorizontalAlignment="Left" Height="319" Margin="298,0,-6,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="227" BorderThickness="0" IsReadOnly="True"  Focusable="False" Background ="#E91E63"/>
+        <TextBox Name="song_lyrics" HorizontalAlignment="Left" Height="319" Margin="298,0,-6,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="227" BorderThickness="0" IsReadOnly="True"  Focusable="False" Background ="#E91E63" />
         <Button Name="play_music" HorizontalAlignment="Left" Margin="78,234,0,0" VerticalAlignment="Top"  Style="{DynamicResource MaterialDesignToolButton}" Height="50" Width="50" Click="Play_music_Click" >
             <Viewbox Width="30" Height="30">
                 <Canvas Width="20" Height="20">
