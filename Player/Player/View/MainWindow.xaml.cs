@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Player.Domain;
 using Player.Controller;
+using System.Windows.Threading;
+using System.Windows.Controls.Primitives;
 
 namespace Player.View
 {
@@ -25,10 +27,36 @@ namespace Player.View
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private bool mediaPlayerIsPlaying = false;
+        private bool userIsDraggingSlider = false;
+
         public MainWindow()
         {
             InitializeComponent();
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timer_Tick;
+            timer.Start();
         }
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if ((media.Source != null) && (media.NaturalDuration.HasTimeSpan) && (!userIsDraggingSlider))
+            {
+                progress.Minimum = 0;
+                progress.Maximum = media.NaturalDuration.TimeSpan.TotalSeconds;
+                progress.Value = media.Position.TotalSeconds;
+            }
+        }
+        private void sliProgress_DragStarted(object sender, DragStartedEventArgs e)
+        {
+            userIsDraggingSlider = true;
+        }
+        private void sliProgress_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            userIsDraggingSlider = false;
+            media.Position = TimeSpan.FromSeconds(progress.Value);
+        }
+
 
         private void Play_music_Click(object sender, RoutedEventArgs e)
         {
