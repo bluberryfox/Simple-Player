@@ -66,23 +66,25 @@ namespace Player.Domain
         public Song(string path)
         {
             var audioFile = TagLib.File.Create(path);
-            if (String.Join(", ", audioFile.Tag.Performers) == "" || String.Join(", ", audioFile.Tag.Performers) == null ||
-                audioFile.Tag.Title == "" || audioFile.Tag.Title == null)
+
+            string temp_singer = String.Join(", ", audioFile.Tag.Performers);
+            string temp_title = audioFile.Tag.Title;
+
+            if (temp_singer == "" || temp_singer == null ||
+                temp_title == "" || temp_title == null)
             {
                 FixFile.FixMP3(path, audioFile);
             }
+
             singer = String.Join(", ", audioFile.Tag.Performers);
             title = audioFile.Tag.Title;
 
-            if (audioFile.Tag.Lyrics == null || audioFile.Tag.Lyrics == "")
+            string temp_lyrics = audioFile.Tag.Lyrics;
+            if (temp_lyrics == null || temp_lyrics == "")
             {
-                lyrics = Deserialization.DeserializeLyrics(SearchLyrics.FindLyrics(singer, title));
-                audioFile.Save();
+                FixFile.WriteLyrics(singer, title, audioFile);
             }
-            else
-            {
-                lyrics = audioFile.Tag.Lyrics;
-            }
+            lyrics = audioFile.Tag.Lyrics;
         }
     }
 }

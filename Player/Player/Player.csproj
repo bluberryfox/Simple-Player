@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="Model\Song.cs" />
     <Compile Include="Services\Deserialization.cs" />
+    <Compile Include="Services\FixFile.cs" />
     <Compile Include="Services\Models\LyricsSong.cs" />
     <Compile Include="Services\SearchLyrics.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
