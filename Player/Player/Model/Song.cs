@@ -10,81 +10,30 @@ using System.Threading.Tasks;
 
 namespace Player.Domain
 {
-    class Song 
+    class Song
     {
-        
-        private string singer;
-        private string title;
-        private string lyrics;
-
-        public string Singer
-        {
-            get
-            {
-                return singer;
-            }
-            set
-            {
-                if (singer != value)
-                {
-                    singer = value;
-                    
-                }
-            }
-        }
-        public string Title
-        {
-            get
-            {
-                return title;
-            }
-            set
-            {
-                if (title != value)
-                {
-                    title = value;
-                   
-                }
-            }
-        }
-        public string Lyrics
-        {
-            get
-            {
-                return lyrics;
-            }
-            set
-            {
-                if (lyrics != value)
-                {
-                    lyrics = value;
-                   
-                }
-            }
-        }
+        public string Singer { get; private set; }
+        public string Title { get; private set; }
+        public string Lyrics { get; private set; }
 
         public Song(string path)
         {
             var audioFile = TagLib.File.Create(path);
-
             string temp_singer = String.Join(", ", audioFile.Tag.Performers);
             string temp_title = audioFile.Tag.Title;
-
             if (temp_singer == "" || temp_singer == null ||
                 temp_title == "" || temp_title == null)
             {
-                FixFile.FixMP3(path, audioFile);
+                FixFile.WriteSongData(path, audioFile);
             }
-
-            singer = String.Join(", ", audioFile.Tag.Performers);
-            title = audioFile.Tag.Title;
-
+            Singer = String.Join(", ", audioFile.Tag.Performers);
+            Title = audioFile.Tag.Title;
             string temp_lyrics = audioFile.Tag.Lyrics;
             if (temp_lyrics == null || temp_lyrics == "")
             {
-                FixFile.WriteLyrics(singer, title, audioFile);
+                FixFile.WriteLyrics(Singer, Title, audioFile);
             }
-            lyrics = audioFile.Tag.Lyrics;
+            Lyrics = audioFile.Tag.Lyrics;
         }
     }
 }

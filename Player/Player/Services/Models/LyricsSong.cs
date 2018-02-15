@@ -24,8 +24,6 @@ namespace Player.Infrastructure.Models
         //на сервере ответы тоже приходят с маленькой буквы, потому и тут с маленькой
         [DataMember]
         public string lyric;
-        [DataMember]
-        public string err;
 
     }
 }

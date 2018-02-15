@@ -58,7 +58,7 @@
         <Slider Name="progress" HorizontalAlignment="Left" Height="9" Margin="26,221,0,0" VerticalAlignment="Top" Width="272" Thumb.DragStarted="SliProgress_DragStarted"  Thumb.DragCompleted="SliProgress_DragCompleted"/>
         <Expander ExpandDirection ="Right" Margin="0,0,226,0" IsExpanded="True" Focusable="False" BorderThickness="0">
             <Grid>
-                <ListBox Name="playlist" Width="271" ScrollViewer.HorizontalScrollBarVisibility="Disabled" RenderTransformOrigin="0.358,0.489" SelectionChanged="Playlist_SelectionChanged" HorizontalAlignment="Left" Margin="-5,-5,-10,-5" Height="321" VerticalAlignment="Top"/>
+                <ListBox Name="playlist" Width="271" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="Playlist_SelectionChanged" HorizontalAlignment="Left" Margin="-5,-5,-10,-5" Height="321" VerticalAlignment="Top"/>
                 <Button Name="add" Style="{DynamicResource MaterialDesignFloatingActionButton}" Margin="190,232,10,23" Click="Add_Click">
                     <Viewbox Width="40" Height="40">
                         <Canvas Width="24" Height="24">

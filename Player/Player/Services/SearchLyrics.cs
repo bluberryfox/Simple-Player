@@ -12,6 +12,7 @@ namespace Player.Infrastructure
     {
         public static string FindLyrics(string singer, string song)
         {
+            //TODO:Add exeption
             string URL = $"http://lyric-api.herokuapp.com/api/find/{singer}/{song}";
             WebRequest request = WebRequest.Create(URL);
             WebResponse response = request.GetResponse();
