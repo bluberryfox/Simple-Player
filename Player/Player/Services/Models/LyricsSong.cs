@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Player.Infrastructure.Models
 {
     [DataContract]
-    class LyricsSong
+    class SongLyrics
     {
         public string Lyrics
         {

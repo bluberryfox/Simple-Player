@@ -11,11 +11,11 @@ namespace Player.Infrastructure
     {
         public static string DeserializeLyrics(string searchResult)
         {
-            LyricsSong result;
+            SongLyrics result;
             using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(searchResult)))
             {
-                DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(LyricsSong));
-                result = (LyricsSong)deserializer.ReadObject(ms);
+                DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(SongLyrics));
+                result = (SongLyrics)deserializer.ReadObject(ms);
             }
             return result.Lyrics;
         }

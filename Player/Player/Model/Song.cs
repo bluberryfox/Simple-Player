@@ -35,14 +35,14 @@ namespace Player.Domain
             if (temp_singer == "" || temp_singer == null ||
                 temp_title == "" || temp_title == null)
             {
-                FixFile.WriteSongData(path, audioFile);
+                RepairFile.WriteSongData(path, audioFile);
             }
             Singer = String.Join(", ", audioFile.Tag.Performers);
             Title = audioFile.Tag.Title;
             string temp_lyrics = audioFile.Tag.Lyrics;
             if (temp_lyrics == null || temp_lyrics == "")
             {
-                FixFile.WriteLyrics(Singer, Title, audioFile);
+                RepairFile.WriteLyrics(Singer, Title, audioFile);
             }
             Lyrics = audioFile.Tag.Lyrics;
         }

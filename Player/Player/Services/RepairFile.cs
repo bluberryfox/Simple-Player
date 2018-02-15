@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Player.Services
 {
-    class FixFile
+    class RepairFile
     {
         public static void WriteSongData(string path, TagLib.File audioFile)
         {
@@ -31,13 +31,9 @@ namespace Player.Services
         {
             string result = SearchLyrics.FindLyrics(singer, title);
             if (result.Length <= 0)
-            {
                 return;
-            }
             else
-            {
                 audioFile.Tag.Lyrics = Deserialization.DeserializeLyrics(result);
-            }
             audioFile.Save();
         }
     }
