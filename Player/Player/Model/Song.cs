@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,7 +62,7 @@ namespace Player.Domain
             }
         }
 
-        public Song(string path, string filename)
+        public Song(string path)
         {
             var audioFile = TagLib.File.Create(path);
             singer = String.Join(", ", audioFile.Tag.Performers);
@@ -69,6 +70,7 @@ namespace Player.Domain
 
             if (singer == "" || singer == null || title == "" || title == null)
             {
+                string filename = Path.GetFileNameWithoutExtension(path);
                 generateData(filename);
                 audioFile.Tag.Performers = new string[] { singer };
                 audioFile.Tag.Title = title;

@@ -33,7 +33,8 @@ namespace Player.View
         private void Play_music_Click(object sender, RoutedEventArgs e)
         {
             int currentSongIndex = playlist.SelectedIndex;
-            PlayMedia(currentSongIndex);
+            string path = MainWindowController.GetPathToFile(currentSongIndex);
+            PlayMedia(path);
             currentSongIndex++;
         }
 
@@ -41,24 +42,27 @@ namespace Player.View
         {
             if (playlist.SelectedIndex - 1 < 0) return;
             playlist.SelectedIndex = playlist.SelectedIndex - 1;
-            PlayMedia(playlist.SelectedIndex);
+            string path = MainWindowController.GetPathToFile(playlist.SelectedIndex);
+            PlayMedia(path);
         }
 
         private void Next_song_Click(object sender, RoutedEventArgs e)
         {
             playlist.SelectedIndex = playlist.SelectedIndex + 1;
-            PlayMedia(playlist.SelectedIndex);
+            string path = MainWindowController.GetPathToFile(playlist.SelectedIndex);
+            PlayMedia(path);
 
         }
 
         private void Playlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //int currentSongIndex = playlist.SelectedIndex;
-            ////вывести сюда через контроллер данные
-            //artist_name.Content = song.Singer;
-            //song_title.Content = song.Title;
-            //song_lyrics.Text = (song.Lyrics != "") ? song.Lyrics : "К сожалению, текста не найдено, но мы работаем над этим. Или вы просто слушаете русскую музыку)";
-            //PlayMedia(currentSongIndex);
+            int currentSongIndex = playlist.SelectedIndex;
+            string path = MainWindowController.GetPathToFile(currentSongIndex);
+            Song song = new Song(path);
+            artist_name.Content = song.Singer;
+            song_title.Content = song.Title;
+            song_lyrics.Text = (song.Lyrics != "") ? song.Lyrics : "К сожалению, текста не найдено, но мы работаем над этим. Или вы просто слушаете русскую музыку)";
+            PlayMedia(path);
         }
 
         private void Pause_button_Click(object sender, RoutedEventArgs e)
@@ -76,11 +80,10 @@ namespace Player.View
         {
             media.Stop();
         }
-        private void PlayMedia(int index)
+        private void PlayMedia(string path)
         {
-            ////получать путь через контроллер
-            //media.Source = new Uri(MainWindowController.Paths[index]);
-            //media.Play();
+            media.Source = new Uri(path);
+            media.Play();
         }
     }
 }

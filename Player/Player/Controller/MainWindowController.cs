@@ -34,6 +34,11 @@ namespace Player.Controller
             }
             return files;
         }
+        public static string GetPathToFile(int index)
+        {
+            return paths[index];
+        }
+
 
 
         
