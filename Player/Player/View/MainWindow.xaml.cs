@@ -80,9 +80,9 @@ namespace Player.View
         {
             string path = controller.GetPathToFile(playlist.SelectedIndex);
             var temp = controller.GetSongInfo(path);
-            artist_name.Content = temp.Item1;
-            song_title.Content = temp.Item2;
-            song_lyrics.Text = temp.Item3 ?? "=^.^= \n Текста нет, но вы держитесь";
+            artistName.Content = temp.Item1;
+            songTitle.Content = temp.Item2;
+            songLyrics.Text = temp.Item3 ?? "=^.^= \n Текста нет, но вы держитесь";
             PlayMedia(path);
         }
 
