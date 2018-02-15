@@ -1,4 +1,5 @@
 ﻿using Player.Infrastructure;
+using Player.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -65,16 +66,13 @@ namespace Player.Domain
         public Song(string path)
         {
             var audioFile = TagLib.File.Create(path);
+            if (String.Join(", ", audioFile.Tag.Performers) == "" || String.Join(", ", audioFile.Tag.Performers) == null ||
+                audioFile.Tag.Title == "" || audioFile.Tag.Title == null)
+            {
+                FixFile.FixMP3(path, audioFile);
+            }
             singer = String.Join(", ", audioFile.Tag.Performers);
             title = audioFile.Tag.Title;
-
-            if (singer == "" || singer == null || title == "" || title == null)
-            {
-                string filename = Path.GetFileNameWithoutExtension(path);
-                generateData(filename);
-                audioFile.Tag.Performers = new string[] { singer };
-                audioFile.Tag.Title = title;
-            }
 
             if (audioFile.Tag.Lyrics == null || audioFile.Tag.Lyrics == "")
             {
@@ -84,20 +82,6 @@ namespace Player.Domain
             else
             {
                 lyrics = audioFile.Tag.Lyrics;
-            }
-        }
-        private void generateData(string filename)
-        {
-            int separatorIndex = filename.LastIndexOf('-');
-            if (separatorIndex == -1)
-            {
-                singer = "Unknown";
-                title = "Unknown";
-            }
-            else
-            {
-                singer = filename.Substring(0, separatorIndex - 1);
-                title = filename.Substring(separatorIndex + 2);
             }
         }
     }

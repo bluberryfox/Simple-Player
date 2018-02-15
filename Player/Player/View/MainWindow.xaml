@@ -11,9 +11,7 @@
         ResizeMode="NoResize"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Title="Cranberry Player" Height="350" Width="525"
-        AllowsTransparency="True"
-        Icon="Resources/cranberry.png"
-                   >
+        AllowsTransparency="True">
 
     <Grid>
         <TextBox Name="song_lyrics" HorizontalAlignment="Left" Height="319" Margin="298,0,-6,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="227" BorderThickness="0" IsReadOnly="True"  Focusable="False" Background ="#E91E63"/>
@@ -41,15 +39,7 @@
         </Button>
         <Label Name="artist_name" HorizontalAlignment="Left" Margin="39,21,0,0" VerticalAlignment="Top" Height="30" Width="180" />
         <Label Name="song_title" HorizontalAlignment="Left" Margin="38,65,0,0" VerticalAlignment="Top" Height="28" Width="180" />
-        <MediaElement Name="media" HorizontalAlignment="Left" Height="0" Margin="293,0,0,0" VerticalAlignment="Top" Width="5"  LoadedBehavior="Manual" RenderTransformOrigin="0.5,0.5">
-            <MediaElement.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </MediaElement.RenderTransform>
+        <MediaElement Name="media" HorizontalAlignment="Left" Height="0" Margin="293,0,0,0" VerticalAlignment="Top" Width="5"  LoadedBehavior="Manual" MediaEnded="Media_MediaEnded">
         </MediaElement>
         <Button Name="pause_button" HorizontalAlignment="Left" Margin="130,234,0,0" VerticalAlignment="Top" Width="50" Height="50" Style="{DynamicResource MaterialDesignToolButton}" Click="Pause_button_Click">
             <Viewbox Width="30" Height="30">
@@ -65,7 +55,7 @@
                 </Canvas>
             </Viewbox>
         </Button>
-        <Slider Name="progress" HorizontalAlignment="Left" Height="9" Margin="26,221,0,0" VerticalAlignment="Top" Width="272" Thumb.DragStarted="sliProgress_DragStarted"  Thumb.DragCompleted="sliProgress_DragCompleted"/>
+        <Slider Name="progress" HorizontalAlignment="Left" Height="9" Margin="26,221,0,0" VerticalAlignment="Top" Width="272" Thumb.DragStarted="SliProgress_DragStarted"  Thumb.DragCompleted="SliProgress_DragCompleted"/>
         <Expander ExpandDirection ="Right" Margin="0,0,226,0" IsExpanded="True" Focusable="False" BorderThickness="0">
             <Grid>
                 <ListBox Name="playlist" Width="271" ScrollViewer.HorizontalScrollBarVisibility="Disabled" RenderTransformOrigin="0.358,0.489" SelectionChanged="Playlist_SelectionChanged" HorizontalAlignment="Left" Margin="-5,-5,-10,-5" Height="321" VerticalAlignment="Top"/>

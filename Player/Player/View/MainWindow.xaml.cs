@@ -27,18 +27,19 @@ namespace Player.View
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private bool mediaPlayerIsPlaying = false;
         private bool userIsDraggingSlider = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timer_Tick;
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            timer.Tick += Timer_Tick;
             timer.Start();
         }
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             if ((media.Source != null) && (media.NaturalDuration.HasTimeSpan) && (!userIsDraggingSlider))
             {
@@ -47,11 +48,11 @@ namespace Player.View
                 progress.Value = media.Position.TotalSeconds;
             }
         }
-        private void sliProgress_DragStarted(object sender, DragStartedEventArgs e)
+        private void SliProgress_DragStarted(object sender, DragStartedEventArgs e)
         {
             userIsDraggingSlider = true;
         }
-        private void sliProgress_DragCompleted(object sender, DragCompletedEventArgs e)
+        private void SliProgress_DragCompleted(object sender, DragCompletedEventArgs e)
         {
             userIsDraggingSlider = false;
             media.Position = TimeSpan.FromSeconds(progress.Value);
@@ -60,10 +61,7 @@ namespace Player.View
 
         private void Play_music_Click(object sender, RoutedEventArgs e)
         {
-            int currentSongIndex = playlist.SelectedIndex;
-            string path = MainWindowController.GetPathToFile(currentSongIndex);
-            PlayMedia(path);
-            currentSongIndex++;
+            media.Play();
         }
 
         private void Previos_song_Click(object sender, RoutedEventArgs e)
@@ -76,20 +74,19 @@ namespace Player.View
 
         private void Next_song_Click(object sender, RoutedEventArgs e)
         {
+            if (playlist.SelectedIndex - 1 < 0) return;
             playlist.SelectedIndex = playlist.SelectedIndex + 1;
-            string path = MainWindowController.GetPathToFile(playlist.SelectedIndex);
-            PlayMedia(path);
+            PlayMedia(MainWindowController.GetPathToFile(playlist.SelectedIndex));
 
         }
 
         private void Playlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int currentSongIndex = playlist.SelectedIndex;
-            string path = MainWindowController.GetPathToFile(currentSongIndex);
-            Song song = new Song(path);
-            artist_name.Content = song.Singer;
-            song_title.Content = song.Title;
-            song_lyrics.Text = (song.Lyrics != "") ? song.Lyrics : "К сожалению, текста не найдено, но мы работаем над этим. Или вы просто слушаете русскую музыку)";
+            string path = MainWindowController.GetPathToFile(playlist.SelectedIndex);
+            var temp = MainWindowController.getSongInfo(path);
+            artist_name.Content = temp.Item1;
+            song_title.Content = temp.Item2;
+            song_lyrics.Text = (temp.Item3 != "") ? temp.Item3 : "К сожалению, текста не найдено, но мы работаем над этим. Или вы просто слушаете русскую музыку)";
             PlayMedia(path);
         }
 
@@ -112,6 +109,21 @@ namespace Player.View
         {
             media.Source = new Uri(path);
             media.Play();
+        }
+
+        private void Media_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            media.Stop();
+
+            if (playlist.SelectedIndex <= playlist.Items.Count)
+            {
+                playlist.SelectedIndex = playlist.SelectedIndex += 1;
+                media.Play();
+            }
+            else
+            {
+                media.Stop();
+            }
         }
     }
 }

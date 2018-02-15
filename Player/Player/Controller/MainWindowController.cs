@@ -14,17 +14,17 @@ using System.Windows.Input;
 
 namespace Player.Controller
 {
-    class MainWindowController 
+    class MainWindowController
     {
         private static List<string> paths;
-        
+
         public static List<string> FindAllFiles()
         {
             var files = new List<string>();
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Multiselect = true,
-                Filter = "Media files (*.mp3;*.mpg;*.mpeg)|*.mp3;*.mpg;*.mpeg|All files (*.*)|*.*"
+                Filter = "Media files (*.mp3;*.mpg;*.mpeg)|*.mp3;*.mpg;*.mpeg"
             };
             if (openFileDialog.ShowDialog() == true)
             {
@@ -38,9 +38,13 @@ namespace Player.Controller
         {
             return paths[index];
         }
+        public static Tuple<string, string, string> getSongInfo(string path)
+        {
+            Song song = new Song(path);
+            return Tuple.Create(song.Singer, song.Title, song.Lyrics);
+        }
 
 
 
-        
     }
 }
