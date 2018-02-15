@@ -16,9 +16,10 @@ namespace Player.Controller
 {
     class MainWindowController
     {
-        private static List<string> paths;
+        private List<string> paths;
+        public MainWindowController() { }
 
-        public static List<string> FindAllFiles()
+        public List<string> FindAllFiles()
         {
             var files = new List<string>();
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -34,11 +35,11 @@ namespace Player.Controller
             }
             return files;
         }
-        public static string GetPathToFile(int index)
+        public string GetPathToFile(int index)
         {
             return paths[index];
         }
-        public static Tuple<string, string, string> GetSongInfo(string path)
+        public Tuple<string, string, string> GetSongInfo(string path)
         {
             Song song = new Song(path);
             return Tuple.Create(song.Singer, song.Title, song.Lyrics);

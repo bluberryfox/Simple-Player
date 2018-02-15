@@ -28,6 +28,7 @@ namespace Player.View
     public partial class MainWindow : MetroWindow
     {
         private bool userIsDraggingSlider = false;
+        MainWindowController controller;
 
         public MainWindow()
         {
@@ -38,6 +39,7 @@ namespace Player.View
             };
             timer.Tick += Timer_Tick;
             timer.Start();
+            controller = new MainWindowController();
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -76,8 +78,8 @@ namespace Player.View
 
         private void Playlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string path = MainWindowController.GetPathToFile(playlist.SelectedIndex);
-            var temp = MainWindowController.GetSongInfo(path);
+            string path = controller.GetPathToFile(playlist.SelectedIndex);
+            var temp = controller.GetSongInfo(path);
             artist_name.Content = temp.Item1;
             song_title.Content = temp.Item2;
             song_lyrics.Text = temp.Item3 ?? "=^.^= \n Текста нет, но вы держитесь";
@@ -92,7 +94,7 @@ namespace Player.View
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             media.Stop();
-            playlist.ItemsSource = MainWindowController.FindAllFiles();
+            playlist.ItemsSource = controller.FindAllFiles();
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
@@ -123,7 +125,7 @@ namespace Player.View
         {
             if (currentIndex - 1 < 0) return;
             playlist.SelectedIndex = playlistDirection(currentIndex);
-            PlayMedia(MainWindowController.GetPathToFile(playlist.SelectedIndex));
+            PlayMedia(controller.GetPathToFile(playlist.SelectedIndex));
         }
     }
 }
