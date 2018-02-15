@@ -28,9 +28,10 @@ namespace Player.Infrastructure
                     }
                 }
             }
-            catch (WebException exeption)
+            catch (WebException ex)
             {
                 result = "";
+
             }
             return result;
         }

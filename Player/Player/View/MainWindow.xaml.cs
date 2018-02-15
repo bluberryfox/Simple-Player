@@ -48,36 +48,30 @@ namespace Player.View
                 progress.Value = media.Position.TotalSeconds;
             }
         }
-        private void SliProgress_DragStarted(object sender, DragStartedEventArgs e)
+        private void Progress_DragStarted(object sender, DragStartedEventArgs e)
         {
             userIsDraggingSlider = true;
         }
-        private void SliProgress_DragCompleted(object sender, DragCompletedEventArgs e)
+        private void Progress_DragCompleted(object sender, DragCompletedEventArgs e)
         {
             userIsDraggingSlider = false;
             media.Position = TimeSpan.FromSeconds(progress.Value);
         }
 
 
-        private void Play_music_Click(object sender, RoutedEventArgs e)
+        private void Play_Click(object sender, RoutedEventArgs e)
         {
             media.Play();
         }
 
-        private void Previos_song_Click(object sender, RoutedEventArgs e)
+        private void PreviosSong_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Refactoring with delegates
-            if (playlist.SelectedIndex - 1 < 0) return;
-            playlist.SelectedIndex = playlist.SelectedIndex - 1;
-            PlayMedia(MainWindowController.GetPathToFile(playlist.SelectedIndex));
+            ChangeSong(playlist.SelectedIndex, x => x - 1);
         }
 
-        private void Next_song_Click(object sender, RoutedEventArgs e)
+        private void NextSong_Click(object sender, RoutedEventArgs e)
         {
-            if (playlist.SelectedIndex - 1 < 0) return;
-            playlist.SelectedIndex = playlist.SelectedIndex + 1;
-            PlayMedia(MainWindowController.GetPathToFile(playlist.SelectedIndex));
-
+            ChangeSong(playlist.SelectedIndex, x=>x+1);
         }
 
         private void Playlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -86,11 +80,11 @@ namespace Player.View
             var temp = MainWindowController.GetSongInfo(path);
             artist_name.Content = temp.Item1;
             song_title.Content = temp.Item2;
-            song_lyrics.Text = temp.Item3 ?? "=^.^= \n Интернета нет, но вы держитесь";
+            song_lyrics.Text = temp.Item3 ?? "=^.^= \n Текста нет, но вы держитесь";
             PlayMedia(path);
         }
 
-        private void Pause_button_Click(object sender, RoutedEventArgs e)
+        private void Pause_Click(object sender, RoutedEventArgs e)
         {
             media.Pause();
         }
@@ -124,6 +118,12 @@ namespace Player.View
             {
                 media.Stop();
             }
+        }
+        private void ChangeSong(int currentIndex, Func<int, int> playlistDirection)
+        {
+            if (currentIndex - 1 < 0) return;
+            playlist.SelectedIndex = playlistDirection(currentIndex);
+            PlayMedia(MainWindowController.GetPathToFile(playlist.SelectedIndex));
         }
     }
 }

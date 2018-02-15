@@ -1,4 +1,5 @@
-﻿using Player.Infrastructure;
+﻿using Player.Controller;
+using Player.Infrastructure;
 using Player.Services;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Player.Domain
 {
@@ -18,7 +20,16 @@ namespace Player.Domain
 
         public Song(string path)
         {
-            var audioFile = TagLib.File.Create(path);
+            TagLib.File audioFile = null;
+            try
+            {
+                audioFile = TagLib.File.Create(path);
+            }
+            catch (TagLib.CorruptFileException)
+            {
+                MainWindowController.ShowSystemMessage("Файл поврежден");
+                return;
+            }
             string temp_singer = String.Join(", ", audioFile.Tag.Performers);
             string temp_title = audioFile.Tag.Title;
             if (temp_singer == "" || temp_singer == null ||

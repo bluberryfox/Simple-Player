@@ -43,6 +43,10 @@ namespace Player.Controller
             Song song = new Song(path);
             return Tuple.Create(song.Singer, song.Title, song.Lyrics);
         }
+        public static void ShowSystemMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
 
 
 
