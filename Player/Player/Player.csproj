@@ -74,8 +74,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="VM\Command.cs" />
-    <Compile Include="VM\MainWindowViewModel.cs" />
+    <Compile Include="Controller\MainWindowController.cs" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -8,15 +8,9 @@ using System.Threading.Tasks;
 
 namespace Player.Domain
 {
-    class Song : INotifyPropertyChanged
+    class Song 
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+        
         private string singer;
         private string title;
         private string lyrics;
@@ -32,7 +26,7 @@ namespace Player.Domain
                 if (singer != value)
                 {
                     singer = value;
-                    OnPropertyChanged("Singer");
+                    
                 }
             }
         }
@@ -47,7 +41,7 @@ namespace Player.Domain
                 if (title != value)
                 {
                     title = value;
-                    OnPropertyChanged("Title");
+                   
                 }
             }
         }
@@ -62,7 +56,7 @@ namespace Player.Domain
                 if (lyrics != value)
                 {
                     lyrics = value;
-                    OnPropertyChanged("Lyrics");
+                   
                 }
             }
         }

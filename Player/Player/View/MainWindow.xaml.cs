@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 using Player.Domain;
 using Player.Controller;
 
-namespace Player
+namespace Player.View
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -53,12 +53,12 @@ namespace Player
 
         private void Playlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int currentSongIndex = playlist.SelectedIndex;
-            //вывести сюда через контроллер данные
-            artist_name.Content = song.Singer;
-            song_title.Content = song.Title;
-            song_lyrics.Text = (song.Lyrics != "") ? song.Lyrics : "К сожалению, текста не найдено, но мы работаем над этим. Или вы просто слушаете русскую музыку)";
-            PlayMedia(currentSongIndex);
+            //int currentSongIndex = playlist.SelectedIndex;
+            ////вывести сюда через контроллер данные
+            //artist_name.Content = song.Singer;
+            //song_title.Content = song.Title;
+            //song_lyrics.Text = (song.Lyrics != "") ? song.Lyrics : "К сожалению, текста не найдено, но мы работаем над этим. Или вы просто слушаете русскую музыку)";
+            //PlayMedia(currentSongIndex);
         }
 
         private void Pause_button_Click(object sender, RoutedEventArgs e)
@@ -68,12 +68,8 @@ namespace Player
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            //тут сделать через контроллер
-            List<string> files = MainWindowController.SelectFiles();
-            foreach (var songname in files)
-            {
-                playlist.Items.Add(songname);
-            }
+            playlist.ItemsSource = MainWindowController.FindAllFiles();
+            
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
@@ -82,9 +78,9 @@ namespace Player
         }
         private void PlayMedia(int index)
         {
-            //получать путь через контроллер
-            media.Source = new Uri(MainWindowController.Paths[index]);
-            media.Play();
+            ////получать путь через контроллер
+            //media.Source = new Uri(MainWindowController.Paths[index]);
+            //media.Play();
         }
     }
 }

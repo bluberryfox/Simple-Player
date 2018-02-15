@@ -12,65 +12,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Player.VM
+namespace Player.Controller
 {
-    class MainWindowViewModel : INotifyPropertyChanged
+    class MainWindowController 
     {
-       
-        public static List<string> Paths;
-        private ObservableCollection<string> files;
-        private int selectedSongIndex;
-        public MediaElement Player { get; set; }
-        public Song song { get; set; }
-
-        public int SelectedSongIndex
+        private static List<string> paths;
+        
+        public static List<string> FindAllFiles()
         {
-            get
-            {
-                return selectedSongIndex;
-            }
-            set
-            {
-                if (Equals(value, selectedSongIndex)) return;
-                selectedSongIndex = value;
-                OnPropertyChanged(nameof(SelectedSongIndex));
-            }
-        }
-        public ObservableCollection<string> Files
-        {
-            get
-            {
-                return files;
-            }
-            set
-            {
-                if (Equals(value, files)) return;
-                files = value;
-                OnPropertyChanged(nameof(Files));
-            }
-        }
-
-        public MainWindowViewModel()
-        {
-            AddFilesCommand = new Command(arg => SelectFiles());
-            PlayMusicCommand = new Command(arg => PlayMusic(selectedSongIndex));
-            Files = new ObservableCollection<string>();
-            song = new Song(Paths[selectedSongIndex], files[selectedSongIndex]);
-           
-        }
-
-        private string PlayMusic(int selectedSongIndex)
-        {
-            return Paths[selectedSongIndex];
-        }
-
-        public ICommand AddFilesCommand { get; set; }
-        public ICommand PlayMusicCommand { get; set; }
-       
-
-
-        public void SelectFiles()
-        {
+            var files = new List<string>();
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Multiselect = true,
@@ -78,16 +28,14 @@ namespace Player.VM
             };
             if (openFileDialog.ShowDialog() == true)
             {
-                Paths = openFileDialog.FileNames.ToList();
+                paths = openFileDialog.FileNames.ToList();
                 foreach (string filename in openFileDialog.SafeFileNames)
-                    Files.Add(System.IO.Path.GetFileNameWithoutExtension(filename));
+                    files.Add(System.IO.Path.GetFileNameWithoutExtension(filename));
             }
+            return files;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
+
+        
     }
 }
