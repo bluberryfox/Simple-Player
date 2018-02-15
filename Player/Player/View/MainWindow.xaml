@@ -12,6 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Title="Cranberry Player" Height="350" Width="525"
         AllowsTransparency="True"
+        Icon="Resources/cranberry.png"
                    >
 
     <Grid>
