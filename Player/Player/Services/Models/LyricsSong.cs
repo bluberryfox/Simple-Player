@@ -14,16 +14,16 @@ namespace Player.Infrastructure.Models
         {
             get
             {
-                return lyric;
+                return lyrics;
             }
             private set
             {
-                lyric = value;
+                lyrics = value;
             }
         }
         //на сервере ответы тоже приходят с маленькой буквы, потому и тут с маленькой
         [DataMember]
-        public string lyric;
+        public string lyrics;
 
     }
 }
