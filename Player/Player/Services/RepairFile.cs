@@ -21,8 +21,8 @@ namespace Player.Services
             }
             else
             {
-                audioFile.Tag.Performers = new string[] { filename.Substring(0, separatorIndex - 1) };
-                audioFile.Tag.Title = filename.Substring(separatorIndex + 2);
+                audioFile.Tag.Performers = new string[] { filename.Substring(0, separatorIndex).Trim() };
+                audioFile.Tag.Title = filename.Substring(separatorIndex + 1).Trim();
             }
             audioFile.Save();
         }
